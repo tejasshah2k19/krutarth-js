@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+</head>
+
+<body>
+
+    <form name="f">
+        N1 : <input type="number" name="n1" /><span id="n1Error"></span> <br>
+        N2 : <input type="text" name="n2" /><span id="n2Error"></span><br>
+
+        Addition : <input type="radio" name="opt" value="+"><br>
+        Sub :<input type="radio" name="opt" value="sub"><br>
+        Mul :<input type="radio" name="opt" value="mul"><br>
+        Div :<input type="radio" name="opt" value="div"><br>
+        <br>
+        <input type="button" value="Submit" onclick="addition()" />
+
+    </form>
+
+    <p id="pAns"></p>
+    <br>
+    <p id="pData"> This is <b>Data</b> of pData Tag </p>
+    <script>
+        function addition() {
+            var n1 = document.f.n1.value;
+            var n2 = document.f.n2.value;
+            var opt = document.f.opt.value;
+
+
+            //1) Error message should be in red color
+            //2) if input is present then error msg must be disappear 
+            //3) in n2 user must not allow to add space 
+            var isError = false;
+            if (n1 == undefined || n1.length == 0) {
+                document.getElementById("n1Error").innerHTML = "Please Enter N1";
+                isError = true;
+            }
+
+            if (n2 == undefined || n2.length == 0) {
+                document.getElementById("n2Error").innerHTML = "Please Enter N2";
+                isError = true;
+            }
+
+            if (isError == false) {
+                n1 = parseInt(n1);
+                n2 = parseInt(n2);
+                var ans = 0;
+                if (opt == "+") {
+                    ans = n1 + n2;
+                } else if (opt == "sub") {
+                    ans = n1 - n2;
+                } else if (opt == "mul") {
+                    ans = n1 * n2;
+                } else if (opt == "div") {
+                    ans = n1 / n2;
+                }
+                var pAns = document.getElementById("pAns");
+                pAns.innerHTML = ans;
+                //console.log(ans);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

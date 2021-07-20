@@ -69,7 +69,40 @@ Data Types:
     array 
     boolean 
     **undefined 
- 
+-------------------------------
+parseInt()
+
+-------------------------------
+ HTML DOM --> using HTML DOM javascript can access and manipulate all the elements/tags of an html page.
+ Document Object Model
+ DOM Tree 
+
+1) Core DOM
+2) XML DOM
+3) HTML DOM
+
+mainly we have two things in dom ->  1) method 2) property 
+
+getElementById ---> method 
+
+we have three options to set/assing content to the html tag/element 
+    p span div li ol 
+
+property :-
+1) innertText :- will not accept any extra space , will not accept any inner html tag  , we get only plain text  
+2) innerHTML :- will get all spaces as well as inner html tag 
+3) textContent :- Will accept all extra spaces but not accepting inner html tag 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
