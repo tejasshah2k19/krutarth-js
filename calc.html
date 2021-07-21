@@ -6,7 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 
 
 </head>
@@ -14,8 +18,8 @@
 <body>
 
     <form name="f">
-        N1 : <input type="number" name="n1" /><span id="n1Error"></span> <br>
-        N2 : <input type="text" name="n2" /><span id="n2Error"></span><br>
+        N1 : <input type="number" name="n1" /><span class="error" id="n1Error"></span> <br>
+        N2 : <input type="text" name="n2" /><span class="error" id="n2Error"></span><br>
 
         Addition : <input type="radio" name="opt" value="+"><br>
         Sub :<input type="radio" name="opt" value="sub"><br>
@@ -32,7 +36,7 @@
     <script>
         function addition() {
             var n1 = document.f.n1.value;
-            var n2 = document.f.n2.value;
+            var n2 = document.f.n2.value.trim(); //string --> trim()
             var opt = document.f.opt.value;
 
 
@@ -43,11 +47,15 @@
             if (n1 == undefined || n1.length == 0) {
                 document.getElementById("n1Error").innerHTML = "Please Enter N1";
                 isError = true;
+            } else {
+                document.getElementById("n1Error").innerHTML = "";
             }
-
+            //
             if (n2 == undefined || n2.length == 0) {
                 document.getElementById("n2Error").innerHTML = "Please Enter N2";
                 isError = true;
+            } else {
+                document.getElementById("n2Error").innerHTML = "";
             }
 
             if (isError == false) {
