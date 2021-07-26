@@ -92,6 +92,40 @@ property :-
 1) innertText :- will not accept any extra space , will not accept any inner html tag  , we get only plain text  
 2) innerHTML :- will get all spaces as well as inner html tag 
 3) textContent :- Will accept all extra spaces but not accepting inner html tag 
+-------------------------------------------------------
+
+
+RegEx --> to verify input data with some patterns 
+
+we can use wild card symbols in regex 
+
+* => 0 or Many 
++ => 1 or Many  
+? => 0 or 1 
+
+
+. => exactly 1 [0-9a-zA-Zallspecial]
+
+
+/^ => start regex 
+
+$/ => end regex 
+
+/^[a-zA-Z]$/ ==> your input must have only single character - a-z OR A-Z 
+
+/^[a-zA-Z]+$/ ==> your input must have atleat 1 character or many from =>  a-z OR A-Z 
+
+XXX@XXX.XXX 
+
+/^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/
+
+
+
+
+
+
+
+
 
 
 
