@@ -9,10 +9,19 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <style>
         span {
             color: red;
+        }
+
+        table {
+            background-color: beige;
+        }
+
+        tr,
+        td {
+            border: 1px solid black;
         }
     </style>
 </head>
@@ -52,10 +61,10 @@
 
         <div class="row">
 
-            <div class="col-md-6" id="loginForm" style="display: none;"  >
+            <div class="col-md-6" id="loginForm" style="display: none;">
                 <h2>Login</h2>
                 <form name="login">
-                    
+
                     <div class="form-group">
                         <lable>Email</lable>
                         <input type="text" name="email" class="form-control" /><span id="emailError"></span>
@@ -65,7 +74,7 @@
                         <input type="text" name="password" class="form-control" /><span id="passwordError"></span>
                     </div>
 
-                    <button type="button"  class="btn btn-primary">Login</button>
+                    <button type="button" class="btn btn-primary" onclick="authenticate()">Login</button>
                     <!-- <button type="button" onclick="showUsers()" class="btn btn-success">Show Users</button>
                      -->
 
@@ -75,9 +84,17 @@
                 <a href="#" onclick="signupForm()">Signup</a>
             </div>
 
+        </div><!-- row login-->
+
+        <div class="row">
+            <div class="col-md-6" id="mytable">
+
+            </div>
         </div>
+        <!--row mytable-->
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -89,6 +106,16 @@
         //const -- mark a variable as constant -- fixed value  once you assing value u cant modify 
 
         var users = [] //blank users array 
+
+        let dummyUser1 = { firstName: "a", email: "a@a.com", password: "a" }
+        let dummyUser2 = { firstName: "b", email: "b@b.com", password: "b" }
+        let dummyUser3 = { firstName: "c", email: "c@c.com", password: "c" }
+
+        users.push(dummyUser1)
+        users.push(dummyUser2)
+        users.push(dummyUser3)
+
+
 
         function validate() {
 
@@ -154,7 +181,7 @@
             users.push(user);
             console.log(user);
             document.reg.reset()
-            toastr.success("Signup Done","",{timeOut:3000})
+            toastr.success("Signup Done", "", { timeOut: 3000 })
         }
 
 
@@ -178,12 +205,84 @@
 
         }
 
-        function signupForm(){
+        function signupForm() {
             let signup = document.getElementById("signupForm")
             signup.style.display = "block"
             let login = document.getElementById("loginForm")
             login.style.display = "none"
         }
+
+        function authenticate() {
+            let email = document.login.email.value;
+            let password = document.login.password.value;
+            let isValid = false
+            for (let i = 0; i < users.length; i++) {
+                user = users[i]; //users[0] 
+                if (email == user.email && password == user.password) {
+                    isValid = true
+                }
+            }
+
+            if (isValid) {
+                toastr.success("Login Done", "", { timeOut: 3000 })
+                document.getElementById("loginForm").style.display = "none"
+                printAllUsers(); //print all users on html using table 
+
+            } else {
+                toastr.error("Invalid Credentials", "", { timeOut: 3000 })
+            }
+
+        }
+
+        //this function will print all users on html using table 
+        function printAllUsers() {
+
+            let table = document.createElement("table")
+
+            let tr = document.createElement("tr")
+
+            let td1 = document.createElement("td")
+            td1.innerHTML = "FirstName"
+
+            let td2 = document.createElement("td")
+            td2.innerHTML = "Email"
+
+            let td3 = document.createElement("td")
+            td3.innerHTML = "Password"
+
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tr.appendChild(td3)
+
+            table.appendChild(tr)
+
+
+            for (let i = 0; i < users.length; i++) {
+                user = users[i]
+                tr = document.createElement("tr")
+
+                td1 = document.createElement("td")
+                td1.innerHTML = user.firstName 
+
+                td2 = document.createElement("td")
+                td2.innerHTML  = user.email 
+
+                td3 = document.createElement("td")
+                td3.innerHTML = user.password 
+
+                
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+
+                table.appendChild(tr)
+            }
+
+            document.getElementById("mytable").appendChild(table)
+
+
+        }
+
     </script>
 </body>
 

@@ -119,9 +119,38 @@ XXX@XXX.XXX
 
 /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/
 
+{2,3} --> specify the size limit --> min is 2 and max 3 
 
 
 
+---------------------------------------------
+
+createElement()
+appendChild()
+
+
+createElement method is used to create any html element [ tag ]
+appendChild method is used to create child element , in simple it will nest tag inside tag [ element inside element ]
+
+
+let table = document.createElement("table")
+
+let tr = document.createElement("tr")
+
+let td1 = document.createElement("td")
+td1.innertHTML  = "FirstName"
+
+let td2 = document.createElement("td") 
+td2.innertHTML  = "Email"
+
+let td3 = document.createElement("td") 
+td3.innertHTML  = "Password"
+
+tr.appendChild(td1)
+tr.appendChild(td2)
+tr.appendChild(td3)
+
+table.appendChild(tr)
 
 
 
