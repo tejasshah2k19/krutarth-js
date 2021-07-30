@@ -250,9 +250,14 @@
             let td3 = document.createElement("td")
             td3.innerHTML = "Password"
 
+
+            let td4 = document.createElement("td")
+            td4.innerHTML = "Action " 
+            
             tr.appendChild(td1)
             tr.appendChild(td2)
             tr.appendChild(td3)
+            tr.appendChild(td4)
 
             table.appendChild(tr)
 
@@ -260,7 +265,7 @@
             for (let i = 0; i < users.length; i++) {
                 user = users[i]
                 tr = document.createElement("tr")
-
+                tr.setAttribute("id",i)
                 td1 = document.createElement("td")
                 td1.innerHTML = user.firstName 
 
@@ -270,10 +275,13 @@
                 td3 = document.createElement("td")
                 td3.innerHTML = user.password 
 
-                
+                td4 = document.createElement("td")
+                td4.innerHTML = "<button onclick='deleteRecord("+i+")' >Delete</button>"
+
                 tr.appendChild(td1)
                 tr.appendChild(td2)
                 tr.appendChild(td3)
+                tr.appendChild(td4)
 
                 table.appendChild(tr)
             }
@@ -281,7 +289,13 @@
             document.getElementById("mytable").appendChild(table)
 
 
-        }
+        } // table function 
+
+    function deleteRecord(row){
+        console.log("delete called...."+row);
+        let x = document.getElementById(row)
+        x.remove()
+    }
 
     </script>
 </body>
