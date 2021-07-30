@@ -154,6 +154,16 @@ table.appendChild(tr)
 
 
 
+--------------------------------
+remove element from dom 
+
+we use remove() of element 
+
+let x = document.getElementById("id12)
+x.remove()
+--------------------------------
+
+
 
 
 
