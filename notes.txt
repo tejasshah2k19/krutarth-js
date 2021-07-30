@@ -163,6 +163,9 @@ let x = document.getElementById("id12)
 x.remove()
 --------------------------------
 
+events :- 
+    
+
 
 
 

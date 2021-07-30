@@ -31,20 +31,22 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-6" id="signupForm">
+            <!-- onmouseenter="console.log('in signup')"  onmouseout="console.log('out')" -->
+            <div class="col-md-6" id="signupForm"  >
                 <h2>Signup</h2>
                 <form name="reg">
                     <div class="form-group">
                         <lable>FirstName</lable>
-                        <input type="text" name="firstName" class="form-control" /><span id="firstNameError"></span>
+                        <input type="text" name="firstName" class="form-control" onkeyup="validateFirstName()" /><span
+                            id="firstNameError"></span>
                     </div>
                     <div class="form-group">
                         <lable>Email</lable>
-                        <input type="text" name="email" class="form-control" /><span id="emailError"></span>
+                        <input type="text" name="email" class="form-control"  onblur="validateEmail()"/><span id="emailError"></span>
                     </div>
                     <div class="form-group">
                         <lable>Password</lable>
-                        <input type="text" name="password" class="form-control" /><span id="passwordError"></span>
+                        <input type="text" name="password" class="form-control"  onkeyup="getKey(event)"/><span id="passwordError"></span>
                     </div>
 
                     <button type="button" onclick="validate()" class="btn btn-primary">Signup</button>
@@ -169,7 +171,6 @@
 
             const total = 12;
             // total =12; //error 
-            var firstName = document.reg.firstName.value;
             var email = document.reg.email.value;
             var password = document.reg.password.value;
 
@@ -252,8 +253,8 @@
 
 
             let td4 = document.createElement("td")
-            td4.innerHTML = "Action " 
-            
+            td4.innerHTML = "Action "
+
             tr.appendChild(td1)
             tr.appendChild(td2)
             tr.appendChild(td3)
@@ -265,18 +266,18 @@
             for (let i = 0; i < users.length; i++) {
                 user = users[i]
                 tr = document.createElement("tr")
-                tr.setAttribute("id",i)
+                tr.setAttribute("id", i)
                 td1 = document.createElement("td")
-                td1.innerHTML = user.firstName 
+                td1.innerHTML = user.firstName
 
                 td2 = document.createElement("td")
-                td2.innerHTML  = user.email 
+                td2.innerHTML = user.email
 
                 td3 = document.createElement("td")
-                td3.innerHTML = user.password 
+                td3.innerHTML = user.password
 
                 td4 = document.createElement("td")
-                td4.innerHTML = "<button onclick='deleteRecord("+i+")' >Delete</button>"
+                td4.innerHTML = "<button onclick='deleteRecord(" + i + ")' >Delete</button>"
 
                 tr.appendChild(td1)
                 tr.appendChild(td2)
@@ -291,12 +292,52 @@
 
         } // table function 
 
-    function deleteRecord(row){
-        console.log("delete called...."+row);
-        let x = document.getElementById(row)
-        x.remove()
-    }
+        function deleteRecord(row) {
+            console.log("delete called...." + row);
+            let x = document.getElementById(row)
+            x.remove()
+        }
 
+        function validateFirstName() {
+
+            var firstName = document.reg.firstName.value;
+            let onlyAlpha = /^[a-zA-Z]+$/;
+
+
+            if (firstName.trim().length == 0) {
+                document.getElementById("firstNameError").innerHTML = "FirstName is Required"
+            }
+            else if (onlyAlpha.test(firstName) == false) {
+                document.getElementById("firstNameError").innerHTML = "FirstName contains only alphabets [a-zA-Z]"
+            }
+            else {
+                document.getElementById("firstNameError").innerHTML = ""
+            }
+        }
+
+        function validateEmail() {
+            let emailRegx = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/;
+
+            let email = document.reg.email.value;
+
+            if (email.trim().length == 0) {
+
+                document.getElementById("emailError").innerHTML = "Email is Required"
+            }
+            else if (emailRegx.test(email) == false) {
+                document.getElementById("emailError").innerHTML = "Invalid Email Format"
+
+            }
+            else {
+                document.getElementById("emailError").innerHTML = ""
+            }
+
+        }
+
+    function getKey(event){
+        // console.log(event);
+        console.log(event.keyCode+" "+event.key);
+    }
     </script>
 </body>
 
