@@ -32,7 +32,7 @@
 
         <div class="row">
             <!-- onmouseenter="console.log('in signup')"  onmouseout="console.log('out')" -->
-            <div class="col-md-6" id="signupForm"  >
+            <div class="col-md-6" id="signupForm">
                 <h2>Signup</h2>
                 <form name="reg">
                     <div class="form-group">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group">
                         <lable>Password</lable>
-                        <input type="text" name="password" class="form-control"  onkeyup="getKey(event)"/><span id="passwordError"></span>
+                        <input type="text" name="password" onkeyup="passwordValidate()" class="form-control"  /><span id="passwordError"></span>
                     </div>
 
                     <button type="button" onclick="validate()" class="btn btn-primary">Signup</button>
@@ -315,6 +315,10 @@
             }
         }
 
+       
+       
+       
+       
         function validateEmail() {
             let emailRegx = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/;
 
@@ -338,6 +342,30 @@
         // console.log(event);
         console.log(event.keyCode+" "+event.key);
     }
+
+    function passwordValidate(){
+
+        let pass = document.reg.password.value 
+
+        if(pass.trim().length > 0 ){
+
+            //8 
+            
+            //0-9 a-z A-Z 
+            let p1 = /[0-9]/
+            let p2 = /[A-Z]/
+            let p3 = /[a-z]/
+
+            if(p1.test(pass) == false || p2.test(pass) == false || p3.test(pass) == false ){
+                    document.getElementById("passwordError").innerHTML = "Password must contains atleast one [0-9][A-Z][a-z]"
+            } else{
+                document.getElementById("passwordError").innerHTML = "" 
+            }   
+
+
+        }
+    }
+
     </script>
 </body>
 

@@ -107,9 +107,12 @@ we can use wild card symbols in regex
 . => exactly 1 [0-9a-zA-Zallspecial]
 
 
-/^ => start regex 
+/  => start regex 
 
-$/ => end regex 
+ / => end regex 
+
+^ -> exactly pattern 
+$ -> terminate 
 
 /^[a-zA-Z]$/ ==> your input must have only single character - a-z OR A-Z 
 
@@ -120,6 +123,19 @@ XXX@XXX.XXX
 /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/
 
 {2,3} --> specify the size limit --> min is 2 and max 3 
+
+
+/t/
+
+password --> 1 0-9 
+             1 A-Z
+             1 a-z
+
+             /^[a-zA-Z0-9]+$/ ==> your data must be in  { a-z A-Z 0-9  }  
+
+            /[0-9]/
+            /[a-z]/
+            /[A-Z]/ 
 
 
 
@@ -159,15 +175,69 @@ remove element from dom
 
 we use remove() of element 
 
-let x = document.getElementById("id12)
+let x = document.getElementById("id12")
 x.remove()
 --------------------------------
 
 events :- 
+    onBlur
+    onclick
+    onkeyup
+
+
+--------------------------------
     
 
+object 
+
+    let user = {
+        firstName:"tejas" 
+    }
+    user1 = {
+        firstName : "ram",
+        balance : 1233
+    }
+
+    user2 = {
+        firstname : "laxman"
+    }
+
+    user.firstName
+    user["firstName"]
 
 
+
+class => logical == blueprint => properties ==> variable + methods 
+object => physical => runtime ==> properties use 
+
+Bank => class  { userName, password ,balance , login() , wid() , dep() , checkBal() }
+Bank -> object => tejas { userName,password,balance,() } 
+        object => krutarth { userName,password,balance,() } 
+ES2015 or ES6 ==>
+
+class User{
+    constructor(){
+        this.userName = ""
+        this.password = "" 
+        this.balance = 0 
+    }
+}
+
+
+let user = new User(); 
+
+//argument parameterized constructor
+
+class User{
+    constructor(n,p,bal){
+        this.userName = n
+        this.password = p 
+        this.balance = bal
+    }
+}
+
+
+let user = new User("tejas","shah",12000); 
 
 
 
