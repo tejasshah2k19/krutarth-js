@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="p"></p>
+
+
+</body>
+<script>
+
+    var sum = 0;
+    function sumOfNumbers(start, end, callback) {
+
+        setTimeout(function () {
+            for (let i = start; i <= end; i++) {
+                sum = sum + i
+            }
+            console.log(sum);
+            console.log("now return ==> ");
+             callback(sum)  
+            //display(sum)
+        }, 5000); // 2  3 10  
+
+        //
+    }
+    //function --> vendor 
+
+    function display(data) {
+        console.log("display call...");
+        document.getElementById("p").innerHTML = data
+    }
+
+    sumOfNumbers(1, 100, display);// 2 second 
+
+
+    //  saveDataIntoDb(data,display)
+    saveDataInDb(data, function () {
+
+    })
+
+
+
+
+
+
+
+</script>
+
+</html>

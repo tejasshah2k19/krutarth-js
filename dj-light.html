@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="red()">
+    
+</body>
+<script>
+
+    function red(){
+         document.body.bgColor="red"        
+        setTimeout(blue,1000); //1000ms --> 1 second 
+    }
+
+    function blue(){
+         document.body.bgColor="blue"        
+         setTimeout(orange,1000); //1000ms --> 1 second 
+    }
+
+    function orange(){
+         document.body.bgColor="orange"        
+         setTimeout(yellow,1000); //1000ms --> 1 second 
+   
+    }
+
+    function yellow(){
+         document.body.bgColor="yellow"        
+         setTimeout(black,1000); //1000ms --> 1 second 
+   
+    }
+
+    function black(){
+         document.body.bgColor="black"        
+         setTimeout(red,1000); //1000ms --> 1 second 
+   
+    }
+
+
+</script>
+</html>
