@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button onclick="windowProp()">Open</button>
+    <button onclick="resizeMe()">Resize</button>
+<script>
+
+
+var first = ""
+function windowProp(){ 
+    console.log(window.innerHeight);
+    console.log(window.innerWidth); 
+    first = window.open("ecom.html","first","width=300,height=300")
+   // window.close()
+    console.log(first);
+}
+function resizeMe(){
+    // console.log(first);
+    first.resizeTo(600,600)
+    first.focus();
+}
+
+
+
+</script>
+</body>
+</html>

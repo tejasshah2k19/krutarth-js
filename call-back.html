@@ -24,7 +24,7 @@
             }
             console.log(sum);
             console.log("now return ==> ");
-             callback(sum)  
+            callback(sum)
             //display(sum)
         }, 5000); // 2  3 10  
 
@@ -41,7 +41,57 @@
 
 
     //  saveDataIntoDb(data,display)
-    saveDataInDb(data, function () {
+    // saveDataInDb(data, function () {
+
+    // })
+
+
+    let myPromise = new Promise(function (success, error) {
+        success();
+        error();
+    })
+
+    myPromise(data).then(function (data) {
+        //pricess 
+    }, function (err) {
+
+    })
+    //DOM 
+    myPromise.then(resp => {
+        //process    
+    }, err => {
+
+    })
+
+    //rxjs 
+
+    //angular 
+    //js f 
+
+
+
+
+    new_user.save(function (err, data) {
+        //
+    });
+
+
+    //api node --> promise 
+    new_user.save(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(result)
+        }
+    })
+
+    new_user.save();//db insert 
+
+
+    new_user.save().then(resp => {
+
+    }, err => {
 
     })
 
@@ -49,8 +99,19 @@
 
 
 
+    async function add() {
 
+    }
+    
+    add().then(resp=>{
 
+    },err=>{
+        
+    })
+
+    let ans = await add;
+    console.log(ans);
+    
 </script>
 
 </html>
