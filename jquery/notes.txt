@@ -1,0 +1,108 @@
+css -> 
+    color:red 
+bootstrap ->
+    class 
+
+    danger -> red 
+
+
+javascript -> js --> function 
+
+jquery is :
+    lib 
+    collection of js code - function 
+
+1) dom manipulation {hide display}
+2) html element modification - style-attribute
+3) animation and styles 
+4) event and effects 
+5) ajax 
+
+installation:-
+    1) cdn or any web url 
+    2) stand-alone-download 
+
+html page load 
+after 
+
+js 
+
+ready(callback);
+
+
+$ => jquery 
+
+
+$(document).ready(function(){
+    console.log("document loaded");   
+
+})
+
+
+moto ==> write less do more , it's a javascript lib 
+
+
+jquery uses CSS selectors -- DOM 
+
+
+$("#city").hide()
+
+
+
+Jquery Selectors :- 
+
+    $("*")  => select all elements
+
+    $(this) => current html element 
+ 
+    $("tr.black") => select all tr with black class 
+
+
+    $("tr:first") => select first tr in page 
+
+    $("tr:even") => 
+    $("tr:odd") => 
+    
+
+---------------------------------------------------------
+    1) internal js** [ html + js ]  .html  
+    2) external js   [ js ]   .js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
