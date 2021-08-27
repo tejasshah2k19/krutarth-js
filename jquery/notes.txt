@@ -72,6 +72,49 @@ p , span,div ==> text()  [ innerHTML , innerText ]
 input => val() 
 ---------------------------------------------------------
 
+events :- 
+        <p><span><div> 
+
+        $("$div").click();
+
+
+        dblclick()
+
+        $("$div").hover(function(){
+
+        });
+
+---------------------------------------------------------
+server url:- 
+
+post signup url 
+get list users 
+delete 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

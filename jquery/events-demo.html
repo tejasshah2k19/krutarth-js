@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="div1" style="display: block;height: 100px;background-color: antiquewhite;">
+        This is fir div
+    </div>
+
+    <div id="div2" style="display: block;height: 100px;background-color:aqua;">
+        This is second div
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // $("#div1").hover(function(){
+            //     console.log("div 1 hover ");
+            // })    
+            // $("#div1").mouseenter(function(){
+            //     console.log("div 1 mouse enter ");
+            // })
+
+            $("#div1").on({
+                mouseenter: function () {
+                    $(this).css("background-color", "red");
+                },
+                mouseleave: function () {
+                    $(this).css("background-color", "antiquewhite")
+                }
+            })
+
+
+
+
+        })
+    </script>
+</body>
+
+</html>
