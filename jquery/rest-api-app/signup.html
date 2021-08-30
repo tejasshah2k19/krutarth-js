@@ -54,7 +54,7 @@
                     <!-- <button type="button" onclick="showUsers()" class="btn btn-success">Show Users</button>
                          -->
                 </form>
-                 <a href="forgetpassword.html">Forget Password?</a>   
+                <a href="forgetpassword.html">Forget Password?</a>
             </div>
 
         </div>
@@ -62,6 +62,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
     <script>
 
@@ -86,30 +87,39 @@
             });
 
 
-            $("#btnSubmit").click(function(){
-                    
-                    let firstName = $("#firstName").val();
-                    let email = $("#email").val();
-                    let password  = $("#password").val();
-                    let url = "http://localhost:9999/saveuser"
-                    let data = {
-                            "firstName":firstName,
-                            "email":email,
-                            "password":password,
-                            "roleId":1
-                        }
-                    console.log(data);
-                    $.post(url,
-                        data,
-                        function(data){
-                            if(data.staus == 200){
-                                alert(data.msg);//success
-                            }else{
-                                alert(data.msg);//error 
-                            }
-                            console.log(data);   
-                        }
-                    );            
+            $("#btnSubmit").click(function () {
+
+                let firstName = $("#firstName").val();
+                let email = $("#email").val();
+                let password = $("#password").val();
+
+                let serverUrl = "http://healthy-me-rest-api.herokuapp.com/saveuser2"
+
+                let userData = {
+                    "firstName": firstName,
+                    "email": email,
+                    "password": password,
+                    "roleId": 1
+                }
+              
+                $.post({
+                    url: serverUrl,
+                    data: userData,
+                    success: function (serverSuccessResponse) {
+                        //toastr.success(serverSuccessResponse.msg, "Success", { timeOut: 2000 })
+                        //console.log(serverSuccessResponse);
+                        toastr.success(serverSuccessResponse.msg, "Success", { timeOut: 2000 })
+                        
+                       setTimeout(function(){
+                          location.href="login.html";
+                       },1000); 
+                    }      
+                    ,error: function (serverErrorResponse) {
+                        toastr.error("Something went wrong", "Error", { timeOut: 2000 })
+                        console.log(serverErrorResponse);
+                    }
+
+                })
             })
 
         })
@@ -126,7 +136,7 @@
        //502 
        //503
 
-        
+
 
     </script>
 
