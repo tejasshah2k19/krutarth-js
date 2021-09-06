@@ -1,0 +1,12 @@
+
+.error{
+color: red;
+}
+
+table {
+    background-color: beige;
+}
+
+tr, td {
+    border: 1px solid black;
+}
