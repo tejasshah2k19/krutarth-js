@@ -35,9 +35,6 @@
                     <button type="button" id="btnSubmit" class="btn btn-primary">Login</button>
                     <!-- <button type="button" onclick="showUsers()" class="btn btn-success">Show Users</button>
                      -->
-
-
-
                 </form>
 
             </div>
@@ -80,12 +77,19 @@
                     data: data,
                     success: function (resp) {
                         if (resp.status == 200) {
+                            console.log("resp = > ", resp);
                             toastr.success("", "Welcome ", { timeOut: 3000 });
-                            let token = resp.data.authToken; 
-                            localStorage.setItem("authToken",token); 
-                            setTimeout(() => {
-                                location.href = "Home.html"
-                            }, 2000);
+                            let token = resp.data.authToken;
+                            localStorage.setItem("authToken", token); //localStorage - sessionStorage -- cookies  
+                            if (resp.data.roleId == 2) {
+                                setTimeout(() => {
+                                    location.href = "Home.html"
+                                }, 2000);
+                            }else if(resp.data.roleId == 1){
+                                setTimeout(() => {
+                                    location.href = "AdminHome.html"
+                                }, 2000);
+                            }
                         } else if (resp.status == -1) {
                             toastr.error("", "Invalid Credentials", { timeOut: 3000 });
                         }
