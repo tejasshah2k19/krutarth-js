@@ -10,3 +10,14 @@ table {
 tr, td {
     border: 1px solid black;
 }
+
+.productView{
+    border: 1px solid black;
+    margin-bottom: 15px; 
+    border-radius: 15px;
+}
+.productView img{
+    width: 200px;
+    height: 200px;
+}
+

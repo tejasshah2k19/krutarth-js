@@ -83,11 +83,11 @@
                             localStorage.setItem("authToken", token); //localStorage - sessionStorage -- cookies  
                             if (resp.data.roleId == 2) {
                                 setTimeout(() => {
-                                    location.href = "Home.html"
+                                    location.href = "users/Home.html"
                                 }, 2000);
                             }else if(resp.data.roleId == 1){
                                 setTimeout(() => {
-                                    location.href = "AdminHome.html"
+                                    location.href = "admin/AdminHome.html"
                                 }, 2000);
                             }
                         } else if (resp.status == -1) {
