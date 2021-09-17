@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/toastr.min.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h2>Add User</h2>
+        <a href="AddProduct.html">Add Product</a> |
+        <a href="ListProducts.html">List Products</a> |
+        <a href="AddUser.html">Add User</a> |
+        <a href="#" id="logout">Logout</a>
+    </div>
+    
+    
+    
+    <div class="container">
+
+        <div class="row">
+            <!-- onmouseenter="console.log('in signup')"  onmouseout="console.log('out')" -->
+            <div class="col-md-6" id="signupForm">
+                
+                <form name="reg" id="regform">
+                    <div class="form-group">
+                        <lable>FirstName</lable>
+                        <input type="text" name="firstName" id="firstName" class="form-control" /><span
+                            id="firstNameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <lable>Email</lable>
+                        <input type="text" name="email" id="email" class="form-control" /><span id="emailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <lable>Password</lable>
+                        <input type="text" name="password" id="password" class="form-control" /><span
+                            id="passwordError"></span>
+                    </div>
+                    <div class="form-group">
+                        <select id="role" class="form-control">
+                            <option value="1">Admin</option>
+                            <option value="2">User</option>
+                        </select>
+                    </div>
+                    <button type="button" id="btnSubmit" class="btn btn-primary">Save User</button>
+                    <!-- <button type="button" onclick="showUsers()" class="btn btn-success">Show Users</button>
+                     -->
+
+
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="/assets/js/jquery-3.6.0.js"></script>
+
+    <script src="/assets/js/toastr.min.js"></script>
+    <script src="/assets/js/ecom.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+         
+             
+
+               $("#btnSubmit").click(function(){
+                    let firstName = $("#firstName").val();
+                    let email  = $("#email").val();
+                    let password  = $("#password").val();
+                    let role = $("#role").val()
+                    
+                    let data = {
+                        "firstName":firstName,
+                        "email":email,
+                        "password":password,
+                        "roleId":role
+                    }
+
+                    console.log(role);
+                    console.log(data);
+                    $.post({
+                       url:"https://healthy-me-rest-api.herokuapp.com/saveuser2",
+                       data:data,
+                       success:function(resp){
+                            toastr.success("","Signup done",{timeOut:3000});
+                            setTimeout(()=>{
+                                location.href = "/Login.html"
+                            },2000);
+                       } ,
+                       error:function(err){
+                        toastr.error("","Something went wrong",{timeOut:3000});
+                       }
+                    })
+               
+               
+                }) 
+        })
+
+    </script>
+
+</body>
+
+</html>

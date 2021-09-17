@@ -36,15 +36,15 @@
 
                             $("#products").append("<div class='row'  id=row" + row + "></div>")
 
-                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount].name + "<br>" + resp.data[productCount++].price + "<br><img  src='/assets/img/product2.jpg'></div>") //0 , 3 , 6
+                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount].name + "<br>" + resp.data[productCount].price + "<br><img  src='/assets/img/product2.jpg'><br><button onclick='addtocart("+resp.data[productCount++].productId+")'>AddToCart</button></div>") //0 , 3 , 6
                             if (productCount == resp.data.length) {
                                 break;
                             }
-                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount].name + "<br>" + resp.data[productCount++].price + "<br><img src='/assets/img/product2.jpg'></div>") //1 , 4 , 7
+                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount].name + "<br>" + resp.data[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='addtocart("+resp.data[productCount++].productId+")'>AddToCart</button></div>") //1 , 4 , 7
                             if (productCount == resp.data.length) {
                                 break;
                             }
-                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount++].name + "<br>" + resp.data[productCount++].price + "<br><img src='/assets/img/product2.jpg'></div>") //2 , 5 
+                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount].name + "<br>" + resp.data[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='addtocart("+resp.data[productCount++].productId+")'>AddToCart</button></div>") //2 , 5 
                             if (productCount == resp.data.length) {
                                 break;
                             }
@@ -57,6 +57,23 @@
             })
         })
 
+        function addtocart(productId){
+            console.log(productId);
+            let token = localStorage.getItem("authToken")
+            console.log(token);
+            $.get({
+                url:"https://healthy-me-rest-api.herokuapp.com/addtocart/"+token+"/"+productId,
+                success:function(resp){
+                    if(resp.status == 200){
+                        toastr.success("","",{timeOut:2000})
+                    }
+                },
+                error:function(resp){
+
+                }
+            })    
+
+        }
     </script>
 </body>
 
