@@ -91,10 +91,8 @@
                        url:"https://healthy-me-rest-api.herokuapp.com/saveuser2",
                        data:data,
                        success:function(resp){
-                            toastr.success("","Signup done",{timeOut:3000});
-                            setTimeout(()=>{
-                                location.href = "/Login.html"
-                            },2000);
+                            toastr.success("","User added",{timeOut:3000});
+                             
                        } ,
                        error:function(err){
                         toastr.error("","Something went wrong",{timeOut:3000});

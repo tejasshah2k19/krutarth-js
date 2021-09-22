@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/toastr.min.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+
+<body>
+       
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="Home.html">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="ViewCart.html">View Cart</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#" id="logout">Logout</a>
+      </li> 
+    </ul>
+  </nav>
+  
+    <div class="container">
+        <h2>All Products</h2>
+        <div id="products">
+
+        </div>
+
+
+    </div>
+
+    <script src="/assets/js/jquery-3.6.0.js"></script>
+    <script src="/assets/js/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.get({
+                url: "https://healthy-me-rest-api.herokuapp.com/products",
+                success: function (resp) {
+                    if (resp.status == 200) {
+                        console.log(resp.data);
+                        let totalRow = resp.data.length / 3;
+                        let productCount = 0;
+                        for (let row = 0; row < totalRow; row++) {
+
+                            $("#products").append("<div class='row'  id=row" + row + "></div>")
+
+                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount].name + "<br>" + resp.data[productCount].price + "<br><img  src='/assets/img/product2.jpg'><br><button onclick='addtocart("+resp.data[productCount++].productId+")'>AddToCart</button></div>") //0 , 3 , 6
+                            if (productCount == resp.data.length) {
+                                break;
+                            }
+                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount].name + "<br>" + resp.data[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='addtocart("+resp.data[productCount++].productId+")'>AddToCart</button></div>") //1 , 4 , 7
+                            if (productCount == resp.data.length) {
+                                break;
+                            }
+                            $("#row" + row).append("<div class='col-md-4 productView'>" + resp.data[productCount].name + "<br>" + resp.data[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='addtocart("+resp.data[productCount++].productId+")'>AddToCart</button></div>") //2 , 5 
+                            if (productCount == resp.data.length) {
+                                break;
+                            }
+                        }
+                    }
+                },
+                error: function (resp) {
+
+                }
+            })
+        })
+
+        function addtocart(productId){
+            console.log(productId);
+            let token = localStorage.getItem("authToken")
+            console.log(token);
+            $.get({
+                url:"https://healthy-me-rest-api.herokuapp.com/addtocart/"+token+"/"+productId,
+                success:function(resp){
+                    if(resp.status == 200){
+                        toastr.success("","item added into cart",{timeOut:2000})
+                    }
+                },
+                error:function(resp){
+
+                }
+            })    
+
+        }
+    </script>
+</body>
+
+</html>
