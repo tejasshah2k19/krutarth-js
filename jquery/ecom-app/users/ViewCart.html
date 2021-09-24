@@ -31,9 +31,12 @@
             </li>
         </ul>
     </nav>
-
     <div class="container">
-        Welcome...
+        <h2>All Products</h2>
+        <div id="products">
+
+        </div>
+
 
     </div>
     <script src="/assets/js/jquery-3.6.0.js"></script>
@@ -41,42 +44,94 @@
     <script src="/assets/js/ecom.js"></script>
 
     <script>
-        $(document).ready(function () {
+
+        $(document).ready(async function () {
             let token = localStorage.getItem("authToken");
+
             let cartProducts;
-            let AllProducts;
-            getAllCartProducts(token);//1 , 2 ,3 
-            getAllProducts();//1,2,3,4,5,6,7,8
-            printCart();//1,2,3
-            
+            await getAllCartProducts(token).then(resp => {
+                cartProducts = resp;
+                console.log("CART =>", cartProducts);
+            });//1 , 2 ,3 
+
+            let allProducts;
+            await getAllProducts().then(resp => {
+                allProducts = resp;
+                console.log("Product =>", allProducts);
+            });//1,2,3,4,5,6,7,8
+
+            printCart(cartProducts, allProducts);//1,2,3
+
         })
 
         function getAllCartProducts(token) {
-            $.get({
-                url: "https://healthy-me-rest-api.herokuapp.com/carts/" + token,
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
-        }
-       
-       
-        function getAllProducts() {
-            $.get({
-                url: "https://healthy-me-rest-api.herokuapp.com/products",
-                success: function (resp) {
-                    if (resp.status == 200) {
+
+            return new Promise(function (resolve, reject) {
+                let allCartProductIds = [];//1,2,3 
+                $.get({
+                    url: "https://healthy-me-rest-api.herokuapp.com/carts/" + token,
+                    success: function (resp) {
                         console.log(resp.data);
+                        for (let i = 0; i < resp.data.length; i++) {
+                            allCartProductIds.push(resp.data[i].productId);
+                        }
+                        resolve(allCartProductIds);
+                    }, error: function (resp) {
+                        reject(resp);
                     }
-                },
-                error: function (resp) {
-
-                }
+                })
             })
         }
 
-        printCart(cartProducts,allProducts){
 
+        function getAllProducts() {
+
+            return new Promise(function (resolve, reject) {
+                $.get({
+                    url: "https://healthy-me-rest-api.herokuapp.com/products",
+                    success: function (resp) {
+                        if (resp.status == 200) {
+                            console.log(resp.data);
+                        }
+                        resolve(resp.data);
+                    },
+                    error: function (resp) {
+
+                    }
+                })
+            })
+        }
+
+        function printCart(cartProducts, allProducts) {
+            console.log("PT =>", cartProducts);
+            console.log("PT =>", allProducts);
+            let productDetails = [];
+
+            for (i = 0; i < cartProducts.length; i++) { //0
+                matchingProduct = allProducts.filter(p => p.productId == cartProducts[i]);
+                productDetails.push(matchingProduct[0]);
+            }
+
+            console.log(productDetails);
+            let totalRow = productDetails.length / 3;
+            let productCount = 0;
+            for (let row = 0; row < totalRow; row++) {
+
+                $("#products").append("<div class='row'  id=row" + row + "></div>")
+
+                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img  src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + productDetails[productCount++].productId + ")'>RemoveFromCart</button></div>") //0 , 3 , 6
+                if (productCount == productDetails.length) {
+                    break;
+                }
+                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + productDetails[productCount++].productId + ")'>RemoveFromCart</button></div>") //1 , 4 , 7
+                if (productCount == productDetails.length) {
+                    break;
+                }
+                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + productDetails[productCount++].productId + ")'>RemoveFromCart</button></div>") //2 , 5 
+                if (productCount == productDetails.length) {
+                    break;
+                }
+            }
         }
     </script>
 </body>
