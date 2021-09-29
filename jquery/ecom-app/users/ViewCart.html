@@ -32,7 +32,7 @@
         </ul>
     </nav>
     <div class="container">
-        <h2>All Products</h2>
+        <h2>My Cart</h2>
         <div id="products">
 
         </div>
@@ -45,12 +45,13 @@
 
     <script>
 
-        $(document).ready(async function () {
+      async  function loadCart() {
             let token = localStorage.getItem("authToken");
 
-            let cartProducts;
+            let cartProducts, cartIds;
             await getAllCartProducts(token).then(resp => {
-                cartProducts = resp;
+                cartProducts = resp[0];
+                cartIds = resp[1];
                 console.log("CART =>", cartProducts);
             });//1 , 2 ,3 
 
@@ -60,22 +61,33 @@
                 console.log("Product =>", allProducts);
             });//1,2,3,4,5,6,7,8
 
-            printCart(cartProducts, allProducts);//1,2,3
+            printCart(cartProducts, allProducts, cartIds);//1,2,3
 
+        }
+
+        $(document).ready(async function () {
+            loadCart();
         })
+
+
 
         function getAllCartProducts(token) {
 
             return new Promise(function (resolve, reject) {
-                let allCartProductIds = [];//1,2,3 
+                let allCartProductIds = [];//1,2,3 -- productId  
+                let allCartsId = []  // cartId 
+                let data = [];
                 $.get({
                     url: "https://healthy-me-rest-api.herokuapp.com/carts/" + token,
                     success: function (resp) {
                         console.log(resp.data);
                         for (let i = 0; i < resp.data.length; i++) {
                             allCartProductIds.push(resp.data[i].productId);
+                            allCartsId.push(resp.data[i].cartId);
                         }
-                        resolve(allCartProductIds);
+                        data.push(allCartProductIds)
+                        data.push(allCartsId)
+                        resolve(data);
                     }, error: function (resp) {
                         reject(resp);
                     }
@@ -102,9 +114,14 @@
             })
         }
 
-        function printCart(cartProducts, allProducts) {
-            console.log("PT =>", cartProducts);
-            console.log("PT =>", allProducts);
+        function printCart(cartProducts, allProducts, cartIds) {
+            let x = $("#products")[0] 
+            x.innerText = "" 
+            
+            console.log("PrintCart => cartProducts => ", cartProducts);
+            console.log("PrintCart => allpriducts  => ", allProducts);
+            console.log("PrintCart => allcartIds   => ", cartIds);
+
             let productDetails = [];
 
             for (i = 0; i < cartProducts.length; i++) { //0
@@ -119,19 +136,34 @@
 
                 $("#products").append("<div class='row'  id=row" + row + "></div>")
 
-                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img  src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + productDetails[productCount++].productId + ")'>RemoveFromCart</button></div>") //0 , 3 , 6
+                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img  src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + cartIds[productCount++] + ")'>RemoveFromCart</button></div>") //0 , 3 , 6
                 if (productCount == productDetails.length) {
                     break;
                 }
-                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + productDetails[productCount++].productId + ")'>RemoveFromCart</button></div>") //1 , 4 , 7
+                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + cartIds[productCount++] + ")'>RemoveFromCart</button></div>") //1 , 4 , 7
                 if (productCount == productDetails.length) {
                     break;
                 }
-                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + productDetails[productCount++].productId + ")'>RemoveFromCart</button></div>") //2 , 5 
+                $("#row" + row).append("<div class='col-md-4 productView'>" + productDetails[productCount].name + "<br>" + productDetails[productCount].price + "<br><img src='/assets/img/product2.jpg'><br><button onclick='removefromcart(" + cartIds[productCount++] + ")'>RemoveFromCart</button></div>") //2 , 5 
                 if (productCount == productDetails.length) {
                     break;
                 }
             }
+        }
+
+        function removefromcart(cartId) {
+            console.log(cartId);
+            $.ajax({
+                url: "http://healthy-me-rest-api.herokuapp.com/carts/" + cartId,
+                method: "DELETE",
+                success: function (resp) {
+                    toastr.success("Item Removed From Cart", "success", { timeOut: 3000 })
+                    loadCart();
+                },
+                error: function (resp) {
+
+                }
+            })
         }
     </script>
 </body>
